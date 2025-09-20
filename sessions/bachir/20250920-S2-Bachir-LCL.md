@@ -25,20 +25,19 @@
 ### Phase 2: Ad-hoc SOW 1: Fix the Git Repository Setup
 1.  `[Done]` **Initialize Repository:** Initialize a new Git repository directly inside the `global` folder.
 2.  `[Done]` **Create `.gitignore`:** Create a `.gitignore` file inside `global/`.
-3.  `[Next]` **Create Remote Repository:** User to create a new, empty repository on GitHub (e.g., `moodle-global-dev`).
-3.  **Create Remote Repository:** User to create a new, empty repository on GitHub (e.g., `moodle-global-dev`).
+3.  `[Done]` **Create Remote Repository:** User to create a new, empty repository on GitHub (e.g., `moodle-global-dev`).
 4.  `[Done]` **Add Remote:** Add the new GitHub repository as the `origin` remote.
-5.  `[Next]` **Create Wrapper Script:** Create a `git-global.bat` file in the project root.
-6.  **Commit & Push:** Add all files, create an initial commit, and push to the new remote repository.
+5.  `[Done]` **Create Wrapper Script:** Create a `git-global.bat` file in the project root.
+6.  `[Done]` **Commit & Push:** Add all files, create an initial commit, and push to the new remote repository.
 
 ### Phase 2.1: Fix Line Ending Warnings in Global Repository
 1.  `[Done]` **Configure Git Attributes:** Create a `.gitattributes` file in the `global` repository to enforce consistent line endings.
-2.  `[Next]` **Normalize Line Endings:** Run `git add --renormalize .` in the `global` repository to apply the new line ending settings.
-3.  **Commit Changes:** Commit the `.gitattributes` file and the line ending changes.
-4.  **Push Changes:** Push the changes to the remote `moodle-global-dev` repository.
+2.  `[Done]` **Normalize Line Endings:** Run `git add --renormalize .` in the `global` repository to apply the new line ending settings.
+3.  `[Done]` **Commit Changes:** Commit the `.gitattributes` file and the line ending changes.
+4.  `[Done]` **Push Changes:** Push the changes to the remote `moodle-global-dev` repository.
 
 ### Phase 3: Moodle 4.5 Verification Environment
-1.  **Create Temporary Verification Directory:** Create a new temporary directory, for example, `D:\moodle-dev\moodle4.5-verify`.
+1.  `[Next]` **Create Temporary Verification Directory:** Create a new temporary directory, for example, `D:\moodle-dev\moodle4.5-verify`.
 2.  **Create Verification `docker-compose.yml`:** Create a `docker-compose.yml` file inside `moodle4.5-verify`.
 3.  **Build and Install Moodle 4.5:** Build and run the containers, then execute the Moodle CLI installer.
 4.  **Verify Installation:** Confirm that Moodle is accessible and functional at `localhost:9001`.
@@ -66,9 +65,12 @@
 *   Created a `git-global.bat` wrapper script in the project root.
 *   Committed all files in the `global` folder and pushed to the remote repository.
 *   Configured Git attributes in the `global` repository to enforce consistent line endings.
+*   Normalized line endings in the `global` repository.
+*   Committed the `.gitattributes` file and the line ending changes.
+*   Pushed the changes to the remote `moodle-global-dev` repository.
 
 ## Current Activity
-*   `[In-Progress]` Phase 2.1, Step 2: Normalize Line Endings
+*   `[In-Progress]` Phase 3, Step 1: Create Temporary Verification Directory
 
 ## Next Steps & Reminders
 *   `[Pending]` Investigate and resolve the intermittent "communication snag" / API errors.
@@ -79,9 +81,4 @@
 *   None.
 
 ## Suggested New Protocols & Instructions
-*   None.s
-*   None.
-
-## Suggested New Protocols & Instructions
-*   None.structions
 *   None.
