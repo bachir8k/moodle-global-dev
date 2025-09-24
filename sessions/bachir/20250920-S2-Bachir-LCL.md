@@ -4,8 +4,10 @@
 *   **Instance:** LCL
 *   **Goal:** Start with Phase 2
 *   **Session Start:** 2025-09-20T22:00:00Z
-*   **Cumulative Time (Hours and Minutes):** Not Tracked
-<!-- AI-Data: CumulativeMinutes=0 -->
+*   **Session End:** 2025-09-20T23:00:00Z
+*   **Current Session Time (Hours and Minutes):** 1 hour 0 minutes
+*   **Cumulative Time (Hours and Minutes):** 1 hour 0 minutes
+<!-- AI-Data: CumulativeMinutes=60 -->
 
 ## Project Plan | Scope of Work
 
@@ -37,11 +39,21 @@
 4.  `[Done]` **Push Changes:** Push the changes to the remote `moodle-global-dev` repository.
 
 ### Phase 3: Moodle 4.5 Verification Environment
-1.  `[Next]` **Create Temporary Verification Directory:** Create a new temporary directory, for example, `D:\moodle-dev\moodle4.5-verify`.
-2.  **Create Verification `docker-compose.yml`:** Create a `docker-compose.yml` file inside `moodle4.5-verify`.
-3.  **Build and Install Moodle 4.5:** Build and run the containers, then execute the Moodle CLI installer.
-4.  **Verify Installation:** Confirm that Moodle is accessible and functional at `localhost:9001`.
-5.  **Decision:** Decide whether to keep this environment or tear it down.
+1.  `[Done]` **Create Temporary Verification Directory:** Create a new temporary directory, for example, `D:\moodle-dev\moodle4.5-verify`.
+2.  `[Done]` **Create Verification `docker-compose.yml`:** Create a `docker-compose.yml` file inside `moodle4.5-verify`.
+3.  `[Next]` **Prepare Nginx Configuration:**
+    a.  `[Paused]` **Duplicate Nginx Folder:** Duplicate `moodle4.5/nginx` folder and its content to `moodle4.5-verify/nginx`.
+    b.  **Update Nginx Config:** Update the new `default.conf` file in `moodle4.5-verify/nginx` to run from port 9001.
+4.  **Update Docker Compose (if needed):** Update the `moodle4.5-verify/docker-compose.yml` if needed to reflect the new Nginx config file location.
+5.  **Build, Run, and Test Containers:** Build and run the containers, and perform initial tests.
+6.  **Prepare Moodle CLI Installer Command:** Prepare the command to execute the Moodle CLI installer and review it with the user before execution.
+7.  **Execute Moodle CLI Installer:** Execute the Moodle CLI installer command and complete the installation.
+8.  **Verify Installation:** Confirm that Moodle is accessible and functional at `localhost:9001`.
+9.  **Decision:** Decide whether to keep this environment or tear it down.
+
+### Phase 3.1: Document Moodle 4.5 Verification Environment Installation
+1.  `[Next]` **Copy and Initialize Installation Guide:** Copy `moodle4.5/documentation/installation.md` to `moodle4.5-verify/documentation/installation.md` and initialize its content.
+2.  **Document Each Step:** After completing each step in Phase 3, update this new `installation.md` file with the relevant instructions and configurations.
 
 ### Phase 4: Set up the new Moodle 5.0 environment
 1.  **Create the `moodle5.0` folder**.
@@ -68,11 +80,14 @@
 *   Normalized line endings in the `global` repository.
 *   Committed the `.gitattributes` file and the line ending changes.
 *   Pushed the changes to the remote `moodle-global-dev` repository.
+*   Created the temporary verification directory `D:\moodle-dev\moodle4.5-verify`.
+*   Created the verification `docker-compose.yml` file in `D:\moodle-dev\moodle4.5-verify`.
 
 ## Current Activity
-*   `[In-Progress]` Phase 3, Step 1: Create Temporary Verification Directory
+*   `[In-Progress]` Phase 3.1, Step 1: Copy and Initialize Installation Guide
 
 ## Next Steps & Reminders
+*   `[Pending]` Investigate bind mount vs. named volume performance for theme development.
 *   `[Pending]` Investigate and resolve the intermittent "communication snag" / API errors.
 *   `[Pending]` Review and optimize the main `gemini.md` memory file.
 *   `[Pending]` Add the automated git pull/push workflow (Continuous Integration/Continuous Deployment (CI/CD)) to the protocols.

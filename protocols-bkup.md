@@ -1,4 +1,4 @@
-Last Modified: 2025-09-24
+Last Modified: 2025-09-20
 
 # 1. General AI Protocols
 
@@ -10,10 +10,11 @@ This file contains general operational protocols for the AI that apply across al
 *   **Implementation / Instructions:**
     1.  **Acknowledge Protocol:** State that you will follow the AI Session Start-up Protocol.
     2.  **Read Workspace README:** Read the `README.md` file at the project root to learn the high-level environment structure.
-    3.  **Read Global Documentation:** Check for a `# Documentation` section in `global/README.md`. If it exists, read every file listed within it. If the section is not found, announce this and proceed to the next step. **Note:** Some documentation may be ignored by Git; you must disable gitignore handling in your tools if you cannot find a file.
-    4.  **Load Project-Specific Context:** If the user specifies a project for the session, I must first ask for the absolute path to the project's root directory. Once confirmed, I will check for a `README.md` file in that path.
-    5.  **Review Past Sessions:** Identify the current user (e.g., 'Bachir'). Then, search for their session log directory (e.g., `global/sessions/bachir/`). If found, list and read all session logs within it. If the directory is not found, I must ask the user for the correct location.
+    3.  **Read Global Documentation:** Read every file listed in the `# Documentation` section of the `global/README.md`. **Note:** Some documentation may be ignored by Git; you must disable gitignore handling in your tools if you cannot find a file.
+    4.  **Load Project-Specific Context:** After the user specifies the project for the session (e.g., `moodle4.5`), you must check for a `README.md` file in that project's root directory. If it exists, read it immediately to load project-specific context and documentation links.
+    5.  **Review Past Sessions:** Identify the current user, then list and read all of their session logs.
     6.  **Create Session Log:** Create a new session log file, asking the user for their name, the instance (LCL/VPS), and the session goal. Use the naming convention: `YYYYMMDD-S#-UserName-instance.md`.
+    *   **Time Tracking:** The new log must include the time tracking block as defined in protocol `2.3`.
     7.  **Confirm Readiness:** Announce that you have completed the start-up protocol and are ready to proceed.
     8.  **Announce Reminders:** After confirming readiness, check the `## Next Steps & Reminders` section of the previous log. If it contains any `[Pending]` items, you must inform the user. (e.g., "I am ready to proceed. I also have pending reminders from our last session. Shall I list them?").
 
@@ -36,7 +37,7 @@ This file contains general operational protocols for the AI that apply across al
 *   **Action:** Use the designated wrapper scripts (e.g., `git-45.bat`, `git-global.bat`) for all Git commands. This is the most important protocol; failure to follow it can lead to irreversible errors.
 *   **Implementation / Instructions:**
     1.  Always prefer a wrapper script if one exists for the target repository.
-    2.  If a suitable wrapper script does not exist, I must first ask the user to confirm the correct project sub-folder for the git operation. Only after receiving confirmation will I change to that directory and execute the `git` command.
+    2.  If a suitable wrapper script does not exist, you must first change the directory to the correct project sub-folder (e.g., `moodle4.5/`) before executing the `git` command.
 
 ## 1.5. Token & Context Management
 *   **Objective:** To operate efficiently and prevent incomplete responses.
@@ -70,41 +71,41 @@ This file contains general operational protocols for the AI that apply across al
         *   `## Next Steps & Reminders`: Contains reminders and instructions for the next session.
         *   `## New Founded Issues`: Documents new issues found during the session.
         *   `## Suggested New Protocols & Instructions`: Documents suggestions for workflow improvements.
-    2.  **Project Plan & Reminders Persistence:** When creating a new session log, you must copy the entire `## Project Plan | Scope of Work` section from the most recent previous session log. For the `## Next Steps & Reminders` section, you must copy only the items marked with `[Pending]`, unless the user specifies otherwise.
+    2.  **Project Plan & Reminders Persistence:** When creating a new session log, you must copy the entire `## Project Plan | Scope of Work` and `## Next Steps & Reminders` sections from the most recent previous session log, unless the user specifies otherwise.
     3.  **Reminder Handling:** When a user asks for a reminder, classify it. If it is a core project task, add it to the `Project Plan`. If it is an ad-hoc reminder, add it to `## Next Steps & Reminders` with a `[Pending]` status.
-    4.  **Planned Task Initiation:** A task must exist in the `## Project Plan | Scope of Work` with a `[Next]` status before execution.
-    5.  **Planned Task Approval:** I must obtain user approval before starting the task. **I will never start a task without explicit user approval.**
-    6.  **Planned Task Execution Start:** Once approved, I follow a strict sequence:
-        a.  Announce my intention to update the session log.
-        b.  Update the task's status from `[Next]` to `[In-Progress]` in the `## Project Plan` section.
-        c.  Announce my intention to execute the task.
-        d.  Execute the task.
-    7.  **Managing Sub-Tasks for Planned Tasks:**
-        *   If an `[In-Progress]` task requires additional steps to complete, I will identify these sub-tasks.
-        *   I will then present them to you for approval, for example: "This task requires additional steps to complete. Should I add the following sub-tasks to the main project plan? [list of sub-tasks]".
-        *   Based on your approval, I will add the selected sub-tasks to the `## Project Plan | Scope of Work`.
-        *   These new sub-tasks will be treated as regular planned tasks, following this same workflow.
-    8.  **Planned Task Completion:** Upon successful completion:
-        a.  I update the task's status to `[Done]` in the `## Project Plan`.
-        b.  I add a new list item summarizing the work to the `## Summary of Actions` section.
-        c.  I set the next logical task in the plan to `[Next]`.
-    9.  **Ad-hoc Task Identification:** If a user requests a task that is not in the project plan, and you do not specify it as ad-hoc, I will ask: "Should we consider this task as ad-hoc and add it to the `## Current Activity` section?"
-    10. **Ad-hoc Mode Initiation:** Once you approve, I will:
-        a.  Set the current `[Next]` task in the `## Project Plan | Scope of Work` to `[Paused]`.
-        b.  Add the new ad-hoc task(s) to the `## Current Activity` section, marking the first one as `[Next]`.
-    11. **Ad-hoc Task Execution:** I will treat the ad-hoc tasks listed in `## Current Activity` as regular tasks, following the same workflow for planned tasks (Get Approval, set to `[In-Progress]`, execute, set to `[Done]`).
-    12. **Ad-hoc Mode Completion:** After all ad-hoc tasks in `## Current Activity` are `[Done]`, I will ask you if you want to move them to the main project plan or delete them from the `## Current Activity` section.
-    13. **Major Change Checkpoint:** Before executing major changes, ask the user if a checkpoint is required.
-    14. **Session Pause:** If a session ends with an `[In-Progress]` task, set its status to `[Paused]` and add a note to `## Next Steps & Reminders` to resume it later.
-    15. **Task Failure:** If a task fails, its status is set to `[Failed]`, a summary is added to `## Summary of Actions`, and it is removed from `## Current Activity` if it exists.
-    16. **Fast-Track Workflow:** If you give approval with the `[fast]` command, I can bypass the status updates for that single task, execute it directly, and then log it in the `## Summary of Actions`.
+    4.  **Task Initiation:** A task must exist in the `## Project Plan | Scope of Work` with a `[Next]` status before execution.
+    5.  **Execution Start:** To begin a `[Next]` task, you must follow this exact sequence:
+    a.  **Get Approval:** Obtain user approval to start the task.
+    b.  **Update Log (State):** Announce your intention to update the session log.
+    c.  **Update Log (Execute):** Use the appropriate tool to update the task's status to `[In-Progress]` in the `## Project Plan` and add a reference to the task under `## Current Activity`.
+    d.  **Execute Task (State):** After the log is updated, announce your intention to execute the task.
+    e.  **Execute Task (Execute):** Execute the task.
+    6.  **Task Decomposition:** If an `[In-Progress]` task is complex, break it into sub-tasks with a `[Next]` status.
+    7.  **Task Failure:** If a task fails, set its status to `[Failed]`, document the failure in `## Summary of Actions`, and remove it from `## Current Activity`.
+    8.  **Task Completion:** Upon completion, set the task's status to `[Done]`, add a summary to `## Summary of Actions`, remove it from `## Current Activity`, and set the next task to `[Next]`.
+    9.  **Major Change Checkpoint:** Before executing major changes, ask the user if a checkpoint is required.
+    10. **Session Pause:** If a session ends with an `[In-Progress]` task, set its status to `[Paused]` and add a note to `## Next Steps & Reminders` to resume it later.
+    11. **Ad-hoc Sub-task Tracking:** For a multi-step ad-hoc task, list the main task in `## Current Activity`. Each sub-task must be nested under it. Before executing a sub-task, you must mark it as `[In-Progress]`. Upon completion, update its status to `[Done]` before starting the next sub-task.
+    12. **Fast-Track Workflow:** If the user provides approval with the `[fast]` command (e.g., `yes [fast]`), you may bypass the standard status update workflow for that single task. Execute the task directly and then add a corresponding entry to the `## Summary of Actions`. This workflow should only be used for quick and non-destructive operations.
 
 ## 2.2. Project Governance
 *   **Objective:** To ensure project protocols and the master issue list are kept up-to-date.
 *   **Action:** Periodically remind the Program Manager to review session logs for new issues and suggestions.
 *   **Implementation / Instructions:**
     1.  At the start of each session, check the `Last Modified:` date at the top of this document.
-    2.  If the date is more than 5 days in the past, I must remind the user 'Bachir' to review recent session logs. I must also ask if I should proceed with consolidating any new issues and protocol suggestions into the master `issues.md` and `ai-protocols.md` files.
+    2.  If the date is more than 5 days in the past, you must remind the user "Bachir" to review recent session logs for new issues and protocol suggestions.
+
+## 2.3. Time Tracking
+*   **Objective:** To automatically track time spent on the project.
+*   **Action:** Record session start and end times, and maintain a cumulative project total.
+*   **Implementation / Instructions:**
+    1.  **Session Start:** When creating a new session log, add the `Session Start:` field with the current timestamp (in ISO 8601 format).
+    2.  **Session End Procedure:** When the user ends a session, perform a sign-off procedure:
+        a.  Retrieve the `Cumulative Time (Minutes)` from the previous session log, stored in a hidden comment (e.g., `<!-- AI-Data: CumulativeMinutes=3000 -->`).
+        b.  Calculate the current session's duration in minutes by comparing the current time with the `Session Start` time.
+        c.  Add the current duration to the previous cumulative time to get a new total.
+        d.  Convert the durations to a human-readable `Hours and Minutes` format.
+        e.  Write the final time tracking block to the session log, including the hidden comment with the new cumulative total in minutes for the next session's calculation.
 
 # 3. Development Protocols
 
@@ -131,7 +132,6 @@ This file contains general operational protocols for the AI that apply across al
     2.  **Verify State:** Verify file state and permissions from within the relevant container, not just the host OS.
     3.  **Avoid Destructive Fixes:** Do not suggest a fresh install or environment teardown without clear evidence it is necessary.
     4.  **Consult User:** Do not execute any major or medium change during debugging without user consultation.
-    5.  **Document Findings:** After resolving a bug, if the issue is novel, I must document it in the current session log under the `## New Founded Issues` section, following the format defined in Protocol 3.4.
 
 ## 3.4. Issue Documentation
 *   **Objective:** To log all new issues for future context awareness.
